@@ -26,11 +26,27 @@ jobs:
     - name: Generate Android Scaffolding
       run: flutter create . --platforms=android
 
-    - name: Fix Gradle Plugin Repositories
+    - name: Configure Gradle Settings
       run: |
-        if [ -f "android/settings.gradle" ]; then
-          sed -i 's/dependencyResolutionManagement {/dependencyResolutionManagement {\n    repositoriesMode.set(RepositoriesMode.FAIL_ON_PROJECT_REPOS)\n    repositories {\n        google()\n        mavenCentral()\n    }\n}/g' android/settings.gradle || true
-        fi
+        mkdir -p android
+        cat << 'SETTINGS' > android/settings.gradle
+        pluginManagement {
+            repositories {
+                google()
+                mavenCentral()
+                gradlePluginPortal()
+            }
+        }
+        dependencyResolutionManagement {
+            repositoriesMode.set(RepositoriesMode.FAIL_ON_PROJECT_REPOS)
+            repositories {
+                google()
+                mavenCentral()
+            }
+        }
+        rootProject.name = "creative_accounting"
+        include ":app"
+        SETTINGS
 
     - name: Clean and Install Dependencies
       run: |
