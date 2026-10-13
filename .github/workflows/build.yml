@@ -22,11 +22,11 @@ jobs:
       uses: subosito/flutter-action@v2
       with:
         channel: 'stable'
-        cache: true
 
-    - name: Create or Update pubspec.lock
+    - name: Clean environment and get pub
       run: |
-        flutter pub pub-upgrade --null-safety || flutter pub get
+        flutter clean
+        flutter pub get
 
     - name: Build APK
       run: flutter build apk --release
