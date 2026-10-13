@@ -23,6 +23,9 @@ jobs:
       with:
         channel: 'stable'
 
+    - name: Upgrade Android Scaffolding to v2
+      run: flutter create . --platforms=android
+
     - name: Get Dependencies
       run: flutter pub get
 
