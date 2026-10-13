@@ -24,8 +24,9 @@ jobs:
         channel: 'stable'
         cache: true
 
-    - name: Install Dependencies
-      run: flutter pub get
+    - name: Create or Update pubspec.lock
+      run: |
+        flutter pub pub-upgrade --null-safety || flutter pub get
 
     - name: Build APK
       run: flutter build apk --release
