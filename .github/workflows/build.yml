@@ -23,7 +23,10 @@ jobs:
       with:
         channel: 'stable'
 
-    - name: Clean environment and get pub
+    - name: Generate Android Scaffolding
+      run: flutter create . --platforms=android
+
+    - name: Clean and Install Dependencies
       run: |
         flutter clean
         flutter pub get
